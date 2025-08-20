@@ -1,0 +1,20 @@
+@use './Variaveis.scss' as *;
+
+.barra {
+    width: 100vw;
+    height: 40px;
+    color: $link-color;
+    background-color: $cor-destaque;
+
+    ul {
+        font-size: $font-size;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+        list-style-type: none;
+        color: $link-color;
+        margin-right: 20px;
+    }
+}
