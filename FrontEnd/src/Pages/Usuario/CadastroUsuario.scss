@@ -1,0 +1,56 @@
+@use '../../Styles/Variaveis.scss' as *;
+
+.containerCadastro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+
+    .formularioCadastro {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: $cor-destaque;
+        padding: 15px;
+        border-radius: 20px;
+        color: $link-color;
+        width: 500px;
+        height: 280px;
+
+        .titulo {
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            font-size: 18px;
+        }
+
+        .input {
+            width: 100%;
+            height: 30px;
+            font-size: $font-size;
+            padding-left: 3px;
+            margin: 5px 0;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .containerBotao {
+            text-align: center;
+        }
+
+        .botao {
+            background-color: $background;
+            border: none;
+            border-radius: 15px;
+            width: 35%;
+            height: 30px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 18px;
+        }
+    }
+}

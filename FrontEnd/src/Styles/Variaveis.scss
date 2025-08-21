@@ -1,0 +1,24 @@
+// Variáveis fixas para usar em todos os arquivos .scss
+
+$background: white;
+$cor-destaque: #0056b3;
+$font-color: black;
+$font-size: 16px;
+$link-color: white;
+
+// Resetando o CSS global
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// Estilização fixa para todas as páginas
+
+body {
+    background-color: $background;
+    color: $font-color;
+    font-size: $font-size;
+}

@@ -1,0 +1,32 @@
+// Importação das variáveis fixas declaradas no Variaveis.scss
+
+@use '../Styles/Variaveis.scss' as *;
+
+// Container do cabeçalho
+
+.containerCabecalho {
+    background-color: $cor-destaque;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    
+    // Título do cabeçalho
+
+    .titulo {
+        font-size: 26px;
+        color: $link-color;
+    }
+
+    // Links de gerenciamento de tarefas e cadastro do usuário
+
+    .links {
+        list-style-type: none;
+        color: $link-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+    }
+}
