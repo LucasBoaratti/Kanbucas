@@ -1,0 +1,51 @@
+@use '../../Styles/Variaveis.scss' as *;
+
+// Centralizando o modal na página
+
+.containerModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: $cor-fundo-modal;
+    width: 100%;
+
+    // Estilização interna do modal
+
+    .modal {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        background-color: $cor-destaque;
+        border-radius: 25px;
+
+        .tituloModal {
+            text-align: center;
+            color: $link-color;
+            margin-bottom: 20px;
+        }
+
+        // Estilização do botão
+
+        .containerBotao {
+            text-align: center;
+
+            .botao {
+                width: 100px;
+                background-color: $background;
+                height: 30px;
+                border: none;
+                border-radius: 15px;
+                cursor: pointer;
+                font-size: 18px;
+            }
+        }
+    }
+}
