@@ -2,11 +2,13 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { LoginModal } from "../../Components/Modais/CadastroModal";
 import axios from "axios";
 
+// Validações do nome e do email utilizando o zod
 const validacoesCadastro = z.object({
     nome: z.string()
-        .min(1, "O campo nome deve ser preenchido.")
+        .min(3, "O campo nome deve possuir no mínimo 3 caracteres.")
         .max(30, "O campo nome não pode passar de 30 caracteres."),
     email: z.string()
         .min(6, "O campo email deve possuir no mínimo 6 caracteres.")
@@ -15,10 +17,10 @@ const validacoesCadastro = z.object({
 });
 
 export function CadastroUsuario() {
-    const [cadastro, setCadastro] = useState();
-    const [nome, setNome] = useState("");
-    const [email, setEmail] = useState("");
+    // Estado que controla o modal
+    const [modalLogin, setModalLogin] = useState(false);
 
+    // Configuração do react-hook-form com o zod
     const {
         register,
         handleSubmit,
@@ -27,23 +29,25 @@ export function CadastroUsuario() {
         resolver: zodResolver(validacoesCadastro),
     });
 
+    // Função de login
     async function login(data) {
-        const data = {
+        const dadosLogin = {
             ...data,
         }
 
         try {
-            await axios.post("http://127.0.0.1:8000/kanbucas/usuarios", data);
+            const response = await axios.post("http://127.0.0.1:8000/kanbucas/usuarios", dadosLogin);
 
-            setCadastro();
+            // Salvando a variável nome para usar como criador da tarefa no kanban
+            const { nome } = response.data;
+            localStorage.setItem("nome", nome);
+
+            setModalLogin(true);
         }
         catch(error) {
-            alert("Erro ao realizar cadastro. Verifique os campos e tente novamente.");
+            alert("Erro ao realizar o cadastro. Tente novamente.");
 
             console.log("Erro ao realizar cadastro: ", error.response?.data);
-
-            setNome("");
-            setEmail("");
         }
     }
     
@@ -52,23 +56,23 @@ export function CadastroUsuario() {
             <section className="containerCadastro">
                 {/* Formulário de cadastro do usuário */}
                 <section className="formularioCadastro">
-                    <h1 className="titulo">Cadastro de usuários</h1>
-                    {cadastro.map((data, index) => (
-                        <form key={index} onSubmit={handleSubmit(login)}>
-                            <label htmlFor="nome" className="label">Nome:</label> <br />
-                            <input type="text" name="nome" id="nome" className="input" placeholder="Digite seu nome" minLength={1} maxLength={30} value={nome} onChange={(e) => setNome(e.target.value)} {...register("nome")} /> <br />
-                            {errors.nome && <p>{errors.nome.message}</p>}
+                    <h1 className="titulo">Cadastro de usuários</h1>                
+                    <form onSubmit={handleSubmit(login)}>
+                        <label htmlFor="nome" className="label">Nome:</label> <br />
+                        <input type="text" name="nome" id="nome" className="input" placeholder="Digite seu nome" minLength={3} maxLength={30} {...register("nome")} /> <br />
+                        {errors.nome && <p>{errors.nome.message}</p>}
 
-                            <label htmlFor="email" className="label">Email:</label> <br />
-                            <input type="text" name="email" id="email" className="input" placeholder="Digite seu email" minLength={6} maxLength={254} value={email} onChange={(e) => setEmail(e.target.value)} {...register("email")} /> <br />
-                            {errors.email && <p>{errors.email.message}</p>}
+                        <label htmlFor="email" className="label">Email:</label> <br />
+                        <input type="text" name="email" id="email" className="input" placeholder="Digite seu email" minLength={6} maxLength={254} {...register("email")} /> <br />
+                        {errors.email && <p>{errors.email.message}</p>}
 
-                            <div className="containerBotao">
-                                <button type="submit" className="botao">Cadastrar</button>
-                            </div>
-                        </form>
-                    ))}
+                        <div className="containerBotao">
+                            <button type="submit" className="botao">Cadastrar</button>
+                        </div>
+                    </form>
                 </section>
+                {/* Renderizando o modal para o usuário */}
+                <LoginModal openModal={modalLogin}/>
             </section>
         </main>
     );
