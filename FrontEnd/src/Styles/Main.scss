@@ -1,4 +1,5 @@
 // Importações globais dos arquivos scss para usar no site
 
-@use '../Pages/Usuario/CadastroUsuario.scss';
 @use './Variaveis.scss';
+@use '../Pages/Usuario/CadastroUsuario.scss';
+@use '../Components/Modais/CadastroModal.scss';
