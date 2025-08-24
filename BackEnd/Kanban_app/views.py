@@ -1,3 +1,6 @@
+from django.db import IntegrityError
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import Usuarios, Tarefas
 from .serializers import UsuarioSerializer, TarefaSerializer
@@ -9,7 +12,6 @@ class UsuariosLCAPIView(ListCreateAPIView):
     queryset = Usuarios.objects.all()
 
     serializer_class = UsuarioSerializer
-
 # Classe que faz a consulta das tarefas e as exibe em formato JSON
 class TarefasLCAPIView(ListCreateAPIView):
     queryset = Tarefas.objects.all()

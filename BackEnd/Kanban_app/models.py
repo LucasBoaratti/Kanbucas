@@ -5,7 +5,7 @@ from django.db import models
 # Classe para armazenar dados do usuário
 class Usuarios(models.Model):
     nome = models.CharField(max_length=30)
-    email = models.CharField(max_length=254)
+    email = models.CharField(max_length=254, unique=True)
 
     def __str__(self):
         return self.nome
