@@ -2,7 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { LoginModal } from "../../Components/Modais/CadastroModal";
+import { LoginModal } from "../../Components/Modais/Usuario/CadastroModal";
 import axios from "axios";
 
 // Validações do nome e do email utilizando o zod
@@ -24,6 +24,7 @@ export function CadastroUsuario() {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(validacoesCadastro),
@@ -39,13 +40,21 @@ export function CadastroUsuario() {
             const response = await axios.post("http://127.0.0.1:8000/kanbucas/usuarios", dadosLogin);
 
             // Salvando a variável nome para usar como criador da tarefa no kanban
-            const { nome } = response.data;
-            localStorage.setItem("nome", nome);
+            const { id, nome } = response.data;
+            localStorage.setItem("idUsuario", id);
+            localStorage.setItem("nomeUsuario", nome);
 
             setModalLogin(true);
         }
         catch(error) {
             alert("Erro ao realizar o cadastro. Tente novamente.");
+            
+            // Exibindo a mensagem de email existente pro usuário
+            const mensagem = error.response?.data?.email?.[0] || "Erro ao cadastrar no site.";
+            setError("email", {
+                type: "manual",
+                message: mensagem,
+            });
 
             console.log("Erro ao realizar cadastro: ", error.response?.data);
         }

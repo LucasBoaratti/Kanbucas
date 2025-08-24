@@ -1,45 +1,57 @@
 @use '../../Styles/Variaveis.scss' as *;
 
-// Estilização do container do formulário de cadastro do usuário
+// Container do formulário
 
-.containerCadastro {
+.containerFormulario {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
 
     // Estilização do formulário
 
-    .formularioCadastro {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    .formulario {
         background-color: $cor-destaque;
-        padding: 15px;
+        padding: 20px;
         border-radius: 20px;
-        color: $link-color;
         width: 500px;
-        height: 280px;
+        color: $link-color;
+        margin-top: 20px;
 
         .titulo {
             font-size: 25px;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .label {
             font-size: 18px;
         }
 
-        .input {
+        .areaTexto {
             width: 100%;
-            height: 30px;
-            font-size: $font-size;
+            resize: vertical;
+            overflow-y: auto;
+            font-size: 18px;
             padding-left: 3px;
             margin: 5px 0;
             border-radius: 10px;
             border: none;
+        }
+
+        .input {
+            padding-left: 3px;
+            font-size: 18px;
+            margin: 5px 0;
+            width: 100%;
+            height: 30px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        .selecao {
+            font-size: 18px;
+            margin: 5px 0;
         }
 
         .containerBotao {
@@ -49,11 +61,10 @@
                 background-color: $background;
                 border: none;
                 border-radius: 15px;
-                width: 35%;
-                height: 30px;
+                width: 30%;
+                font-size: 18px;
                 margin: 10px 0;
                 cursor: pointer;
-                font-size: 18px;
             }
         }
     }
