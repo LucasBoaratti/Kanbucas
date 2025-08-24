@@ -1,6 +1,6 @@
 // Importação das variáveis fixas declaradas no Variaveis.scss
 
-@use '../Styles/Variaveis.scss' as *;
+@use '../../Styles/Variaveis.scss' as *;
 
 // Container do cabeçalho
 
@@ -28,5 +28,10 @@
         justify-content: center;
         align-items: center;
         gap: 25px;
+        font-size: 20px;
+    }
+
+    .links li {
+        cursor: pointer;
     }
 }
