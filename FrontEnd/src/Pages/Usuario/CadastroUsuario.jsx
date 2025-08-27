@@ -45,16 +45,11 @@ export function CadastroUsuario() {
             localStorage.setItem("nomeUsuario", nome);
 
             setModalLogin(true);
+
+            const usuario = usuari
         }
         catch(error) {
             alert("Erro ao realizar o cadastro. Tente novamente.");
-            
-            // Exibindo a mensagem de email existente pro usuário
-            const mensagem = error.response?.data?.email?.[0] || "Erro ao cadastrar no site.";
-            setError("email", {
-                type: "manual",
-                message: mensagem,
-            });
 
             console.log("Erro ao realizar cadastro: ", error.response?.data);
         }
@@ -68,11 +63,11 @@ export function CadastroUsuario() {
                     <h1 className="titulo">Cadastro de usuários</h1>                
                     <form onSubmit={handleSubmit(login)}>
                         <label htmlFor="nome" className="label">Nome:</label> <br />
-                        <input type="text" name="nome" id="nome" className="input" placeholder="Digite seu nome" minLength={3} maxLength={30} {...register("nome")} /> <br />
+                        <input type="text" name="nome" id="nome" className="input" placeholder="Digite seu nome" minLength={3} maxLength={30} {...register("nome")} required /> <br />
                         {errors.nome && <p>{errors.nome.message}</p>}
 
                         <label htmlFor="email" className="label">Email:</label> <br />
-                        <input type="text" name="email" id="email" className="input" placeholder="Digite seu email" minLength={6} maxLength={254} {...register("email")} /> <br />
+                        <input type="email" name="email" id="email" className="input" placeholder="Digite seu email" minLength={6} maxLength={254} {...register("email")} required /> <br />
                         {errors.email && <p>{errors.email.message}</p>}
 
                         <div className="containerBotao">

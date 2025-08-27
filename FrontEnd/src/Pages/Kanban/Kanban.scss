@@ -1,0 +1,93 @@
+@use '../../Styles/Variaveis.scss' as *;
+
+.titulo {
+    margin-top: 10px;
+    text-align: center;
+}
+
+// Estilização das tarefas
+
+.kanban {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    // Estilização da aba a fazer
+
+    .aFazer {
+        margin-top: 20px;
+
+        .tituloAFazer {
+            text-align: center;
+        }
+
+        .cardAFazer {
+            background-color: $cor-fundo-cards;
+            margin-top: 10px;
+            padding: 15px;
+            border-radius: 20px;
+        }
+
+        .paragrafo {
+            font-size: 18px;
+            line-height: 30px;
+        }
+
+        // Estilização dos status
+
+        .containerSelecao {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            .statusTarefas {
+                padding: 3px;
+                font-size: 18px;
+                text-align: center;
+                height: 35px;
+                margin: 10px 0;
+            }
+
+            .botaoStatus {
+                cursor: pointer;
+                width: 40%;
+                height: 35px;
+                background-color: $cor-destaque;
+                color: $link-color;
+                font-size: 18px;
+                border: none;
+                border-radius: 15px;
+            }
+        }
+
+        // Botões de editar e excluir
+
+        .containerBotoes {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 10px;
+
+            .botao {
+                width: 25%;
+                height: 35px;
+                background-color: $cor-destaque;
+                border: none;
+                border-radius: 15px;
+                color: $link-color;
+                font-size: 18px;
+            }
+        }
+    }
+
+    // Estilizações da aba fazendo
+
+    .fazendo {
+        margin-top: 20px;
+
+        .tituloFazendo {
+            text-align: center;
+        }
+    }
+}
