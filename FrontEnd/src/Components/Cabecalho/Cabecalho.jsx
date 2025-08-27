@@ -9,9 +9,9 @@ export function Cabecalho() {
             <h1 className="titulo">Gereciamentos de tarefas</h1>
             <nav>
                 <ul className="links">
-                    <li onClick={() => navigate("/")} style={{ }}>Cadastro de usuário</li>
-                    <li onClick={() => navigate("/tarefas")}>Cadastro de tarefa</li>
-                    <li>Gerenciar tarefas</li>
+                    <li onClick={() => navigate("/")} className="link">Cadastro de usuário</li>
+                    <li onClick={() => navigate("/tarefas")} className="link">Cadastro de tarefa</li>
+                    <li onClick={() => navigate("/kanban")} className="link">Gerenciar tarefas</li>
                 </ul>
             </nav>
         </header>
