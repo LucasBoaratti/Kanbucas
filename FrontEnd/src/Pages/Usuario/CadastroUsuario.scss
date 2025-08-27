@@ -21,6 +21,17 @@
         color: $link-color;
         width: 500px;
         height: 280px;
+        // Animando o formulário 😍🤩
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fade 0.8s ease-in-out forwards;
+
+        @keyframes fade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .titulo {
             font-size: 25px;
