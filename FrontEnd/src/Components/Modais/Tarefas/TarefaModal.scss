@@ -2,21 +2,23 @@
 
 // Centralizando o modal na página
 
-.containerModal {
+.containerModalTarefa {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    min-height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
     width: 100%;
+    background-color: $cor-fundo-modal;
+    padding: 50px 0;
 
     // Estilização interna do modal
 
-    .modal {
+    .modalTarefa {
         display: flex;
         flex-direction: column;
         justify-content: center;

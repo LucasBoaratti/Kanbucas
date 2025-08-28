@@ -9,9 +9,9 @@ export function TarefaModal({ openModal }) {
     const navigate = useNavigate();
 
     return (
-        // Modal
-        <section className="containerModal">
-            <div className="modal">
+        // Modal de tarefas
+        <section className="containerModalTarefa">
+            <div className="modalTarefa">
                 <h1 className="tituloModal">Tarefa cadastrada com sucesso!</h1>
                 <div className="containerBotao">
                     <button type="button" onClick={() => navigate("/kanban")} className="botao">Avançar</button>

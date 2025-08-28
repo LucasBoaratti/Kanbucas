@@ -10,9 +10,9 @@ export function LoginModal({ openModal }) {
     const navigate = useNavigate();
 
     return (
-        // Modal de login
-        <section className="containerModal">
-            <div className="modal">
+        // Modal de login 
+        <section className="containerModalUsuario">
+            <div className="modalUsuario">
                 <h1 className="tituloModal">Cadastro concluído com sucesso!</h1>
                 <div className="containerBotao">
                     <button type="button" className="botao" onClick={() => navigate("/tarefas")}>Avançar</button>

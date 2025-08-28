@@ -2,7 +2,7 @@
 
 // Centralizando o modal na página
 
-.containerModal {
+.containerModalUsuario {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,12 +12,13 @@
     top: 0;
     left: 0;
     z-index: 1000;
-    background-color: $cor-fundo-modal;
     width: 100%;
+    background-color: $cor-fundo-modal;
+    padding: 50px 0;
 
     // Estilização interna do modal
 
-    .modal {
+    .modalUsuario {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -25,11 +26,25 @@
         padding: 15px;
         background-color: $cor-destaque;
         border-radius: 25px;
+        width: 500px;
+        height: 300px;
+        overflow: 0;
+        transform: translateY(20px);
+        animation: fade 0.5s ease-in-out forwards;
+        
+        @keyframes fade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .tituloModal {
             text-align: center;
             color: $link-color;
             margin-bottom: 20px;
+            font-size: 30px;
+            margin-bottom: 40px;
         }
 
         // Estilização do botão
