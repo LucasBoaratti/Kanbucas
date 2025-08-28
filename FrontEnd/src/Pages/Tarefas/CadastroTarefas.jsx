@@ -28,6 +28,7 @@ const validacoesTarefas = z.object({
 export function CadastroTarefas() {
     // Estado para armazenar os nomes do usuário e para exibir o modal de tarefa cadastrada
     const [nomes, setNomes] = useState([]);
+    const [idUsuario, setIdUsuario] = useState("");
     const [modalTarefa, setModalTarefa] = useState(false);
 
     // Configuração do react-hook-form com o zod 
@@ -43,7 +44,7 @@ export function CadastroTarefas() {
     async function tarefas(data) {
         const dadosTarefas = {
             ...data,
-            id_usuario: Number(localStorage.getItem("idUsuario")),
+            id_usuario: idUsuario,
         }
 
         try {
@@ -98,14 +99,14 @@ export function CadastroTarefas() {
                         {errors.prioridade && <p>{errors.prioridade.message}</p>}
 
                         <label htmlFor="usuario" className="label">Usuário responsável</label> <br />
-                        <select name="usuario" id="usuario" className="selecao" required>
+                        <select name="usuario" id="usuario" className="selecao" value={idUsuario} onChange={(e) => setIdUsuario(e.target.value)} required>
                             {nomes.map((usuario) => (
                                 <option key={usuario.id} value={usuario.id}>{usuario.nome}</option>
                            ))}
                         </select> <br />
 
                         <label htmlFor="dataCadastro" className="label">Data de cadastro</label> <br />
-                        <input type="date" name="dataCadastro" id="dataCadastro" className="input" placeholder="Data de cadastro" {...register("data_cadastro")} required /> <br />
+                        <input type="date" name="dataCadastro" id="dataCadastro" className="input" {...register("data_cadastro")} required /> <br />
                         {errors.data_cadastro && <p>{errors.data_cadastro.message}</p>}
 
                         <label htmlFor="status" className="label">Status</label> <br />

@@ -40,13 +40,10 @@ export function CadastroUsuario() {
             const response = await axios.post("http://127.0.0.1:8000/kanbucas/usuarios", dadosLogin);
 
             // Salvando a variável nome para usar como criador da tarefa no kanban
-            const { id, nome } = response.data;
-            localStorage.setItem("idUsuario", id);
+            const { nome } = response.data;
             localStorage.setItem("nomeUsuario", nome);
 
             setModalLogin(true);
-
-            const usuario = usuari
         }
         catch(error) {
             alert("Erro ao realizar o cadastro. Tente novamente.");

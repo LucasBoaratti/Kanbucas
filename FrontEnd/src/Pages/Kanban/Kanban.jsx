@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CardTarefa } from "./Cards/CardTarefa";
+import { CardTarefa } from "../Cards/CardTarefa";
 import axios from "axios";
 
 export function Kanban() {
@@ -15,6 +15,7 @@ export function Kanban() {
             const response = await axios.get("http://127.0.0.1:8000/kanbucas/tarefas");
 
             setTarefas(response.data);
+            // Setando o estado com a filtragem do tipo de status
             setTarefasAFazer(response.data.filter(tarefa => tarefa.status === "A fazer"));
             setTarefasFazendo(response.data.filter(tarefa => tarefa.status === "Fazendo"));
             setTarefasProntas(response.data.filter(tarefa => tarefa.status === "Pronto"));
@@ -45,7 +46,7 @@ export function Kanban() {
 
     return (
         <main>
-            <h1 className="titulo">Tarefas - KanBucas</h1>
+            <h1 className="titulo">Tarefas - Kanbucas</h1>
             {/* Card de tarefas */}
             <section className="kanban">
                 {/* A fazer */}
