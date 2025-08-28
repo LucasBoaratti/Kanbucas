@@ -6,17 +6,18 @@
 
 .containerCabecalho {
     background-color: $cor-destaque;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px;
+    padding: 10px;
     
     // Título do cabeçalho
 
     .titulo {
-        font-size: 26px;
+        font-size: 25px;
         color: $link-color;
+        margin-bottom: 15px;
     }
 
     // Links de gerenciamento de tarefas e cadastro do usuário
