@@ -6,7 +6,9 @@ export function Index() {
     return (
         <>
             <Cabecalho/>
-            <Outlet/>
+            <div style={{ flex:"1" }}>  
+                <Outlet/>
+            </div>
         </>
     );
 }
