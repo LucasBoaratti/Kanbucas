@@ -1,0 +1,64 @@
+@use '../../../Styles/Variaveis.scss' as *;
+
+// Centralizando o modal na página
+
+.containerModalTarefa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    background-color: $cor-fundo-modal;
+    padding: 50px 0;
+
+    // Estilização interna do modal
+
+    .modalTarefa {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        background-color: $cor-destaque;
+        border-radius: 25px;
+        width: 500px;
+        height: 300px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeModal 0.5s ease-in-out forwards;
+
+        @keyframes fadeModal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tituloModal {
+            text-align: center;
+            color: $link-color;
+            margin-bottom: 20px;
+            font-size: 30px;
+        }
+
+        // Estilização do botão
+
+        .containerBotao {
+            text-align: center;
+
+            .botao {
+                background-color: $background;
+                height: 30px;
+                border: none;
+                border-radius: 15px;
+                cursor: pointer;
+                font-size: 18px;
+            }
+        }
+    }
+}
