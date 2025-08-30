@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { CardTarefa } from "../Cards/CardTarefa";
+import { CardTarefa } from "../../Components/Cards/CardTarefa";
+import { DeletarTarefaModal } from "../../Components/Modais/Tarefas/DeletarTarefaModal";
 import axios from "axios";
 
 export function Kanban() {
@@ -8,6 +9,8 @@ export function Kanban() {
     const [tarefasAFazer, setTarefasAFazer] = useState([]);
     const [tarefasFazendo, setTarefasFazendo] = useState([]);
     const [tarefasProntas, setTarefasProntas] = useState([]);
+    const [modalDeletarTarefa, setModalDeletarTarefa] = useState(false);
+    const [idTarefa, setIdTarefa] = useState(null);
 
     // Função que pega as tarefas a partir da URL das tarefas
     async function get_tarefas() {
@@ -43,6 +46,11 @@ export function Kanban() {
             console.error("Erro ao atualizar status da tarefa: ", error.response?.data);
         }
     }
+    
+    function abrir_modal(id) {
+        setIdTarefa(id);
+        setModalDeletarTarefa(true);
+    }
 
     return (
         <main>
@@ -54,7 +62,7 @@ export function Kanban() {
                     <h2 className="tituloAFazer">A fazer</h2>
                     {/* Renderizando o card da tarefa com o status a fazer */}
                     {tarefasAFazer.map((tarefa) => (
-                        <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa}/>
+                        <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal} />
                     ))}
                 </section>
                 {/* Fazendo */}
@@ -62,7 +70,7 @@ export function Kanban() {
                     <h2 className="tituloFazendo">Fazendo</h2>
                     {/* Renderizando o card da tarefa com o status fazendo */}
                     {tarefasFazendo.map((tarefa) => (
-                        <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa}/>
+                        <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal} />
                     ))}
                 </section>
                 {/* Pronto */}
@@ -70,9 +78,11 @@ export function Kanban() {
                     <h2 className="tituloPronto">Pronto</h2>
                     {/* Renderizando o card da tarefa com o status pronto */}
                     {tarefasProntas.map((tarefa) => (
-                        <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa}/>
+                        <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal} />
                     ))}
                 </section>
+                {/* Renderizando o modal de deletar tarefa */}
+                <DeletarTarefaModal openModal={modalDeletarTarefa} closeModal={() => setModalDeletarTarefa(false)} atualizarCards={get_tarefas} idTarefa={idTarefa} />
             </section>
         </main>
     );
