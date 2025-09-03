@@ -13,8 +13,8 @@ export function TarefaModal({ openModal }) {
         <section className="containerModalTarefa">
             <div className="modalTarefa">
                 <h1 className="tituloModal">Tarefa cadastrada com sucesso!</h1>
-                <div className="containerBotao">
-                    <button type="button" onClick={() => navigate("/kanban")} className="botao">Avançar</button>
+                <div className="containerBotaoTarefa">
+                    <button type="button" onClick={() => navigate("/kanban")} className="botaoTarefa">Avançar</button>
                 </div>
             </div>
         </section>
