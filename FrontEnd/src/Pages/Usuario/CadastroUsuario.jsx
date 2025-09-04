@@ -9,11 +9,21 @@ import axios from "axios";
 const validacoesCadastro = z.object({
     nome: z.string()
         .min(3, "O campo nome deve possuir no mínimo 3 caracteres.")
-        .max(30, "O campo nome não pode passar de 30 caracteres."),
+        .max(30, "O campo nome não pode passar de 30 caracteres.")
+        .regex(/^[A-Za-zÀ-ÿ\s]+$/, { // A-Z maíusculas, a-z minúsculas, À-ÿ com acentos
+            message: "Digite apenas letras, por favor.",
+        }),
+        // Regex de mínimo e máximo
+        // .regex(/^.{3, 30}$/, {
+            // message: "Digite no mínimo 3 letras e no máximo 50"
+        // })
     email: z.string()
         .min(6, "O campo email deve possuir no mínimo 6 caracteres.")
         .max(254, "O campo email não pode passar de 254 caracteres.")
-        .email("O email deve conter . e @"),
+        // Regex para email
+        .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]$/, {
+            message: "Email inválido. Tente novamente.",
+        }),
 });
 
 export function CadastroUsuario() {
@@ -24,7 +34,6 @@ export function CadastroUsuario() {
     const {
         register,
         handleSubmit,
-        setError,
         formState: { errors },
     } = useForm({
         resolver: zodResolver(validacoesCadastro),
@@ -61,11 +70,11 @@ export function CadastroUsuario() {
                     <form onSubmit={handleSubmit(login)}>
                         <label htmlFor="nome" className="label">Nome:</label> <br />
                         <input type="text" name="nome" id="nome" className="input" placeholder="Digite seu nome" minLength={3} maxLength={30} {...register("nome")} required /> <br />
-                        {errors.nome && <p>{errors.nome.message}</p>}
+                        {errors.nome && <p className="erro">{errors.nome.message}</p>}
 
                         <label htmlFor="email" className="label">Email:</label> <br />
                         <input type="email" name="email" id="email" className="input" placeholder="Digite seu email" minLength={6} maxLength={254} {...register("email")} required /> <br />
-                        {errors.email && <p>{errors.email.message}</p>}
+                        {errors.email && <p className="erro">{errors.email.message}</p>}
 
                         <div className="containerBotao">
                             <button type="submit" className="botao">Cadastrar</button>
