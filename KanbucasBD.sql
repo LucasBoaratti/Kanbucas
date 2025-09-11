@@ -1,13 +1,17 @@
+-- Criando o banco de dados do projeto
 CREATE DATABASE kanbucas;
 
+-- "Usando" o banco de dados
 USE kanbucas;
 
+-- Criando a tabela de usuários
 CREATE TABLE Usuarios(
 	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	nome VARCHAR(30) NOT NULL,
     email VARCHAR(254) UNIQUE NOT NULL
 );
 
+-- Criando a tabela de tarefas
 CREATE TABLE Tarefas(
 	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	descricao TEXT NOT NULL,
@@ -18,6 +22,7 @@ CREATE TABLE Tarefas(
 	id_usuario INT NOT NULL
 );
 
+-- Adicionando a chave estrangeira para o ID do usuário na tabela de tarefas
 ALTER TABLE Tarefas
 ADD CONSTRAINT fk_usuarios
 FOREIGN KEY(id_usuario) REFERENCES Usuarios(id);
