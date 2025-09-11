@@ -21,7 +21,7 @@ const validacoesCadastro = z.object({
         .min(6, "O campo email deve possuir no mínimo 6 caracteres.")
         .max(254, "O campo email não pode passar de 254 caracteres.")
         // Regex para email
-        .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]$/, {
+        .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
             message: "Email inválido. Tente novamente.",
         }),
 });
