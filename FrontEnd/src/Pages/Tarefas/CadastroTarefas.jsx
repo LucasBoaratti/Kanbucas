@@ -14,7 +14,13 @@ const validacoesTarefas = z.object({
     nome_setor: z.string() 
         .min(1, "O campo setor não pode estar vazio.")
         .max(50, "O nome do setor não pode ultrapassar 50 caracteres."),
-    prioridade: z.enum(["Baixa", "Média", "Alta"]),
+    prioridade: z.enum(["Baixa", "Média", "Alta"], {
+        errorMap: () => {
+            return {
+                message: "Escolha ao menos uma prioridade, por favor.",
+            }
+        }
+    }),
     data_cadastro: z.string()
         .refine((value) => { 
             const data = new Date(value);
@@ -66,6 +72,11 @@ export function CadastroTarefas() {
                 const response = await axios.get("http://127.0.0.1:8000/kanbucas/usuarios");
                 
                 setNomes(response.data);
+
+                // Definindo um usuário padrão no campo de usuário responsável
+                if(response.data.length > 0) {
+                    setIdUsuario(response.data[0].id);
+                }
             }
             catch(error) {
                 console.log("Erro ao buscar os usuários: ", error.response?.data);

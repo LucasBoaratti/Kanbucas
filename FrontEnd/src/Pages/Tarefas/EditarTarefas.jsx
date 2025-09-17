@@ -76,6 +76,11 @@ export function EditarTarefas() {
                 const response = await axios.get("http://127.0.0.1:8000/kanbucas/usuarios");
                 
                 setNomes(response.data);
+
+                // Definindo um usuário padrão no campo de usuário responsável
+                if(response.data.length > 0) {
+                    setIdUsuario(response.data[0].id);
+                }
             }
             catch(error) {
                 console.log("Erro ao buscar os usuários: ", error.response?.data);
