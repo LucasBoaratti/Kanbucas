@@ -42,6 +42,14 @@
             border: none;
         }
 
+        // Estilizando a borda dos inputs ao navegar com TAB
+
+        .input:focus-visible {
+            outline: none;
+            border: 3px solid magenta;
+            border-radius: 15px;
+        }
+
         .erro {
             margin: 5px 0;
         }
@@ -58,6 +66,14 @@
                 margin: 10px 0;
                 cursor: pointer;
                 font-size: 18px;
+            }
+
+            // Estilizando a borda do botão ao navegar com TAB
+
+            .botao:focus-visible {
+                outline: none;
+                border: 3px solid magenta;
+                border-radius: 15px;
             }
         }
     }

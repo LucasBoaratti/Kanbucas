@@ -31,9 +31,9 @@ class Tarefas(models.Model):
 
     descricao = models.TextField()
     nome_setor = models.CharField(max_length=30)
-    prioridade = models.CharField(max_length=5, choices=select_prioridades, default=select_prioridades[0])
+    prioridade = models.CharField(max_length=5, choices=select_prioridades, default="Alta")
     data_cadastro = models.DateField()
-    status = models.CharField(max_length=10, choices=select_status, default=select_status[0])
+    status = models.CharField(max_length=10, choices=select_status, default="A fazer")
     id_usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
 
     def __str__(self):

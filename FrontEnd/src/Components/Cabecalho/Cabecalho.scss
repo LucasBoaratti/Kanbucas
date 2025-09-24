@@ -53,4 +53,14 @@
     .link:hover::after {
         transform: scaleX(1);
     }
+
+    // Estilizando a borda de navegação com o TAB
+
+    .link:focus-visible {
+        outline: none;
+        border: 3px solid $link-color;
+        border-radius: 15px;
+        padding: 5px;
+        font-size: 25px;
+    }
 }

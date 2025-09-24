@@ -64,6 +64,14 @@
                 font-size: 18px;
                 color: black;
             }
+
+            // Estilizando a borda do botão ao navegar com TAB
+
+            .botao:focus-visible {
+                outline: none;
+                border: 3px solid orangered;
+                border-radius: 15px;
+            }
         }
     }
 }

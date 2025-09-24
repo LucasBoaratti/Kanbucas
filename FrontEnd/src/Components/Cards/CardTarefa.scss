@@ -9,6 +9,7 @@
     border-radius: 20px;
     width: 350px;
     height: 350px;
+    transition: transform 0.3s ease;
 
     .paragrafo {
         font-size: 18px;
@@ -27,6 +28,13 @@
             height: 35px;
             margin: 10px 0;
         }
+
+        // Estilizando a borda dos selects ao navegar com TAB
+
+        .statusTarefas:focus-visible {
+            outline: none;
+            border: 3px solid magenta;
+        }
     
         .botaoStatus {
             cursor: pointer;
@@ -37,7 +45,15 @@
             font-size: 18px;
             border: none;
             border-radius: 15px;
-        }  
+        } 
+        
+        // Estilizando a borda do botão ao navegar com TAB
+
+        .botaoStatus:focus-visible {
+            outline: none;
+            border: 3px solid orangered;
+            border-radius: 15px;
+        }
     }
 
     // Botões de editar e excluir
@@ -59,5 +75,37 @@
             font-size: 18px;
             cursor: pointer;
         }
+
+        // Estilizando a borda do botão ao navegar com TAB
+
+        .botao:focus-visible {
+            outline: none;
+            border: 3px solid orangered;
+            border-radius: 15px;
+        }
+    }
+
+    // Estilizando o botão de arrastar
+
+    .botaoArrastar {
+        text-align: end;
+        margin-top: 20px;
+    }
+
+    .botao {
+        height: 35px;
+        border: none;
+        border-radius: 15px;
+        color: black;
+        font-size: 20px;
+        cursor: grab;
+    }
+
+    // Estilizando a borda do botão ao navegar com TAB
+
+    .botao:focus-visible {
+        outline: none;
+        border: 3px solid orangered;
+        border-radius: 15px;
     }
 }

@@ -39,6 +39,14 @@
             border-radius: 10px;
             border: none;
         }
+        
+        // Estilizando a borda da área de texto ao navegar com o TAB
+
+        .areaTexto:focus-visible {
+            outline: none;
+            border: 3px solid magenta;
+            border-radius: 15px;
+        }
 
         .input {
             padding-left: 3px;
@@ -50,9 +58,24 @@
             border: none;
         }
 
+        // Estilizando a borda dos inputs ao navegar com TAB
+
+        .input:focus-visible {
+            outline: none;
+            border: 3px solid magenta;
+            border-radius: 15px;
+        }
+
         .selecao {
             font-size: 18px;
             margin: 5px 0;
+        }
+
+        // Estilizando a borda dos selects ao navegar com TAB
+
+        .selecao:focus-visible {
+            outline: none;
+            border: 3px solid magenta;
         }
 
         .containerBotao {
@@ -63,9 +86,18 @@
                 border: none;
                 border-radius: 15px;
                 width: 30%;
+                height: 30px;
                 font-size: 18px;
                 margin: 10px 0;
                 cursor: pointer;
+            }
+
+            // Estilizando a borda do botão ao navegar com TAB
+
+            .botao:focus-visible {
+                outline: none;
+                border: 3px solid magenta;
+                border-radius: 15px;
             }
         }
     }
