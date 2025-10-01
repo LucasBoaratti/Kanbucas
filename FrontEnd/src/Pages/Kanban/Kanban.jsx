@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDroppable } from "@dnd-kit/core";
+import { closestCorners, useDroppable } from "@dnd-kit/core";
 import { CardTarefa } from "../../Components/Cards/CardTarefa";
 import { DeletarTarefaModal } from "../../Components/Modais/Tarefas/DeletarTarefaModal";
 import { DndContext } from "@dnd-kit/core"; //Área que permite o uso do drag in drop
 import axios from "axios";
+import { Coluna } from "../../Components/Coluna/Coluna";
 
 export function Kanban() {
     // Estados dos dados das tarefas e modais
@@ -51,9 +52,6 @@ export function Kanban() {
     async function handleDragEnd(event) {
         const { active, over } = event;
 
-        console.log("Ativo: ", active);
-        console.log("over: ",over);
-
         if (over && active) {
             try {
                 const tarefasId = parseInt(active.id);
@@ -79,33 +77,24 @@ export function Kanban() {
 
     return (
         <main>
-            <DndContext onDragEnd={handleDragEnd}>
+            <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
                 <h1 className="titulo">Tarefas - Kanbucas</h1>
                 {/* Card de tarefas */}
                 <section className="kanban">
                     {/* A fazer */}
-                    <section className="aFazer" ref={setAFazerRef}>
-                        <h2 className="tituloAFazer">A fazer</h2>
+                    <section className="aFazer" id="A fazer" ref={setAFazerRef}>
                         {/* Renderizando o card da tarefa com o status a fazer */}
-                        {tarefas.filter(task => task.status === "A fazer").map((tarefa) => (
-                            <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal} />
-                        ))}
+                        <Coluna id="A fazer" tarefas={tarefas} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal}/>
                     </section>
                     {/* Fazendo */}
-                    <section className="fazendo" ref={setFazendoRef}>
-                        <h2 className="tituloFazendo">Fazendo</h2>
+                    <section className="fazendo" id="fazendo" ref={setFazendoRef}>
                         {/* Renderizando o card da tarefa com o status fazendo */}
-                        {tarefas.filter(task => task.status === "Fazendo").map((tarefa) => (
-                            <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal} />
-                        ))}
+                        <Coluna id="Fazendo" tarefas={tarefas} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal}/>
                     </section>
                     {/* Pronto */}
-                    <section className="pronto" ref={setProntoRef}>
-                        <h2 className="tituloPronto">Pronto</h2>
+                    <section className="pronto" id="pronto" ref={setProntoRef}>
                         {/* Renderizando o card da tarefa com o status pronto */}
-                        {tarefas.filter(task => task.status === "Pronto").map((tarefa) => (
-                            <CardTarefa key={tarefa.id} tarefa={tarefa} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal} />
-                        ))}
+                        <Coluna id="Pronto" tarefas={tarefas} statusTarefa={patch_status_tarefa} atualizarCards={get_tarefas} abrirModal={abrir_modal}/>
                     </section>
                     {/* Renderizando o modal de deletar tarefa */}
                     <DeletarTarefaModal openModal={modalDeletarTarefa} closeModal={() => setModalDeletarTarefa(false)} atualizarCards={get_tarefas} idTarefa={idTarefa} />
