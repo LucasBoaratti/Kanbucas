@@ -41,7 +41,7 @@
 
         .tituloModal {
             text-align: center;
-            color: $link-color;
+            color: $cor-fonte;
             margin-bottom: 20px;
             font-size: 30px;
         }
@@ -65,7 +65,7 @@
 
             .botaoTarefa:focus-visible {
                 outline: none;
-                border: 3px solid orangered;
+                border: 3px solid black;
                 border-radius: 15px;
             }
         }

@@ -16,7 +16,7 @@
 
     .titulo {
         font-size: 25px;
-        color: $link-color;
+        color: $cor-fonte;
         margin-bottom: 15px;
     }
 
@@ -24,7 +24,7 @@
 
     .links {
         list-style-type: none;
-        color: $link-color;
+        color: $cor-fonte;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -46,7 +46,7 @@
         bottom: 0;
         transform: scaleX(0);
         transform-origin: center;
-        background-color: $link-color;
+        background-color: $cor-fonte;
         transition: transform 0.3s ease-in-out;
     }
 
@@ -58,7 +58,7 @@
 
     .link:focus-visible {
         outline: none;
-        border: 3px solid $link-color;
+        border: 3px solid $cor-fonte;
         border-radius: 15px;
         padding: 5px;
         font-size: 25px;

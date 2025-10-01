@@ -28,38 +28,18 @@ export function CardTarefa({ tarefa, statusTarefa, atualizarCards, abrirModal })
     // Navegação entre páginas
     const navigate = useNavigate();
 
-    // Função para arrumar a data de cadastro da tarefa para DD/MM/AAAA
-    function data_arrumada(dataString) {
-        const data = new Date(dataString);
-
-        const dia = data.getDate().toString().padStart(2, "0");
-        const mes = (data.getMonth() + 1).toString().padStart(2, "0");
-        const ano = data.getFullYear();
-        
-        return `${dia}/${mes}/${ano}`;
-    }
-
     useEffect(() => {
         setStatus(tarefa.status);
     }, [tarefa.status]);
 
     return (
         // Card da tarefa
-        <article className="cards" ref={setNodeRef} style={style} {...attributes}>
+        <div className="cards" role="group" ref={setNodeRef} style={style} {...attributes}>
             <section>
                 <p className="paragrafo"><b>Descrição:</b> {tarefa.descricao}</p>
                 <p className="paragrafo"><b>Setor:</b> {tarefa.nome_setor}</p>
                 <p className="paragrafo"><b>Prioridade:</b> {tarefa.prioridade}</p>
-                <p className="paragrafo"><b>Responsável:</b> {tarefa.nome_usuario}</p>
-                <p className="paragrafo"><b>Data de cadastro:</b> {data_arrumada(tarefa.data_cadastro)}</p>
-                <div className="containerSelecao">
-                    <select name="status" id="status" className="statusTarefas" value={status} onChange={(e) => setStatus(e.target.value)}>
-                        <option value="A fazer">A fazer</option>
-                        <option value="Fazendo">Fazendo</option>
-                        <option value="Pronto">Pronto</option>
-                    </select>
-                    <button type="button" className="botaoStatus" onClick={() => statusTarefa(tarefa.id, status)}>Alterar status</button>
-                </div>
+                <p className="paragrafo"><b>Vinculado a:</b> {tarefa.nome_usuario}</p>
                 <div className="containerBotoes">
                     <button type="button" className="botao" onClick={() => {
                         // Adicionando os campos das tarefas para aparecer no formulário de editar tarefas
@@ -78,11 +58,19 @@ export function CardTarefa({ tarefa, statusTarefa, atualizarCards, abrirModal })
                         abrirModal(tarefa.id);
                     }}>Excluir</button>
                 </div>
+                <div className="containerSelecao">
+                    <select name="status" id="status" className="statusTarefas" value={status} aria-label="Status da tarefa" onChange={(e) => setStatus(e.target.value)}>
+                        <option value="A fazer">A fazer</option>
+                        <option value="Fazendo">Fazendo</option>
+                        <option value="Pronto">Pronto</option>
+                    </select>
+                    <button type="button" className="botaoStatus" onClick={() => statusTarefa(tarefa.id, status)}>Alterar status</button>
+                </div>
                 {/* Adicionando um botão de arrastar o card */}
-                <div className="botaoArrastar" {...listeners}>
-                    <button type="button" className="botao">⠿</button>
+                <div className="botaoArrastar">
+                    <button type="button" className="botaoArrasta" aria-label="Botão de arrastar" {...listeners}>⠿</button>
                 </div>
             </section>
-        </article>
+        </div>
     );
 }
