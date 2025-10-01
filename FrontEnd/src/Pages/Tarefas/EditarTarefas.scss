@@ -16,7 +16,7 @@
         padding: 20px;
         border-radius: 20px;
         width: 500px;
-        color: $link-color;
+        color: $cor-fonte;
         margin: 50px 0;
 
         .titulo {
@@ -44,7 +44,7 @@
 
         .areaTexto:focus-visible {
             outline: none;
-            border: 3px solid magenta;
+            border: 3px solid black;
             border-radius: 15px;
         }
 
@@ -62,7 +62,7 @@
 
         .input:focus-visible {
             outline: none;
-            border: 3px solid magenta;
+            border: 3px solid black;
             border-radius: 15px;
         }
 
@@ -75,17 +75,18 @@
 
         .selecao:focus-visible {
             outline: none;
-            border: 3px solid magenta;
+            border: 3px solid black;
         }
 
         .containerBotao {
             text-align: center;
 
             .botao {
-                background-color: $background;
+                background-color: $cor-botao;
                 border: none;
                 border-radius: 15px;
                 width: 30%;
+                height: 30px;
                 font-size: 18px;
                 margin: 10px 0;
                 cursor: pointer;
@@ -95,7 +96,7 @@
 
             .botao:focus-visible {
                 outline: none;
-                border: 3px solid magenta;
+                border: 3px solid black;
                 border-radius: 15px;
             }
         }

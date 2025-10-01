@@ -16,7 +16,7 @@
         padding: 20px;
         border-radius: 20px;
         width: 500px;
-        color: $link-color;
+        color: $cor-fonte;
         margin: 50px 0;
 
         .titulo {
@@ -44,7 +44,7 @@
 
         .areaTexto:focus-visible {
             outline: none;
-            border: 3px solid magenta;
+            border: 3px solid black;
             border-radius: 15px;
         }
 
@@ -62,7 +62,7 @@
 
         .input:focus-visible {
             outline: none;
-            border: 3px solid magenta;
+            border: 3px solid black;
             border-radius: 15px;
         }
 
@@ -75,14 +75,14 @@
 
         .selecao:focus-visible {
             outline: none;
-            border: 3px solid magenta;
+            border: 3px solid black;
         }
 
         .containerBotao {
             text-align: center;
 
-            .botao {
-                background-color: $background;
+            .botaoCadastro {
+                background-color: $cor-botao;
                 border: none;
                 border-radius: 15px;
                 width: 30%;
@@ -94,9 +94,9 @@
 
             // Estilizando a borda do botão ao navegar com TAB
 
-            .botao:focus-visible {
+            .botaoCadastro:focus-visible {
                 outline: none;
-                border: 3px solid magenta;
+                border: 3px solid black;
                 border-radius: 15px;
             }
         }

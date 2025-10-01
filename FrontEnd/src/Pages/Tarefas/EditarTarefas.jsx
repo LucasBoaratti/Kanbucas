@@ -98,11 +98,11 @@ export function EditarTarefas() {
                     <h1 className="titulo">Edite a tarefa aqui</h1>
                     <form onSubmit={handleSubmit(put_tarefas)}>
                         <label htmlFor="descricao" className="label">Descrição</label> <br />
-                        <textarea name="descricao" id="descricao" className="areaTexto" placeholder="Descreva a tarefa aqui" minLength={1} maxLength={500} {...register("descricao")} required ></textarea> <br />
+                        <textarea name="descricao" id="descricao" className="areaTexto" placeholder="Descreva a tarefa aqui" minLength={1} maxLength={500} {...register("descricao")} readOnly></textarea> <br />
                         {errors.descricao && <p>{errors.descricao.message}</p>}
 
                         <label htmlFor="setor" className="label">Setor</label> <br />
-                        <input type="text" name="setor" id="setor" className="input" placeholder="Nome do setor" minLength={1} maxLength={50} {...register("nome_setor")} required /> <br />
+                        <input type="text" name="setor" id="setor" className="input" placeholder="Nome do setor" minLength={1} maxLength={50} {...register("nome_setor")} readOnly/> <br />
                         {errors.nome_setor && <p>{errors.nome_setor.message}</p>}
 
                         <label htmlFor="prioridade" className="label">Prioridade</label> <br />
@@ -121,7 +121,7 @@ export function EditarTarefas() {
                         </select> <br />
 
                         <label htmlFor="dataCadastro" className="label">Data de cadastro</label> <br />
-                        <input type="date" name="dataCadastro" id="dataCadastro" className="input" {...register("data_cadastro")} required /> <br />
+                        <input type="date" name="dataCadastro" id="dataCadastro" className="input" {...register("data_cadastro")} readOnly/> <br />
                         {errors.data_cadastro && <p>{errors.data_cadastro.message}</p>}
 
                         <label htmlFor="status" className="label">Status</label> <br />

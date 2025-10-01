@@ -129,7 +129,7 @@ export function CadastroTarefas() {
                         {errors.status && <p>{errors.status.message}</p>}
 
                         <div className="containerBotao">
-                            <button type="submit" className="botao">Cadastrar</button>
+                            <button type="submit" className="botaoCadastro">Cadastrar</button>
                         </div>
 
                         <TarefaModal openModal={modalTarefa}/>

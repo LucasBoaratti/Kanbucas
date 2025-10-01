@@ -18,7 +18,7 @@
         background-color: $cor-destaque;
         padding: 15px;
         border-radius: 20px;
-        color: $link-color;
+        color: $cor-fonte;
         width: 500px;
         height: fit-content;
 
@@ -46,7 +46,7 @@
 
         .input:focus-visible {
             outline: none;
-            border: 3px solid magenta;
+            border: 3px solid black;
             border-radius: 15px;
         }
 
@@ -58,7 +58,7 @@
             text-align: center;
 
             .botao {
-                background-color: $background;
+                background-color: $cor-botao;
                 border: none;
                 border-radius: 15px;
                 width: 35%;
@@ -72,7 +72,7 @@
 
             .botao:focus-visible {
                 outline: none;
-                border: 3px solid magenta;
+                border: 3px solid black;
                 border-radius: 15px;
             }
         }
