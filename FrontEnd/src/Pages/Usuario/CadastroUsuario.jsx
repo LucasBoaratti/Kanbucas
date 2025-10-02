@@ -10,6 +10,9 @@ const validacoesCadastro = z.object({
     nome: z.string()
         .min(3, "O campo nome deve possuir no mínimo 3 caracteres.")
         .max(30, "O campo nome não pode passar de 30 caracteres.")
+        .refine((value) => value === value.trim(), {
+            message: "O nome não pode começar e/ou terminar com espaços.",
+        })
         .regex(/^[A-Za-zÀ-ÿ\s]+$/, { // A-Z maíusculas, a-z minúsculas, À-ÿ com acentos
             message: "Digite apenas letras, por favor.",
         }),
@@ -20,6 +23,9 @@ const validacoesCadastro = z.object({
     email: z.string()
         .min(6, "O campo email deve possuir no mínimo 6 caracteres.")
         .max(254, "O campo email não pode passar de 254 caracteres.")
+        .refine((value) => value === value.trim(), {
+            message: "O email não pode começar e/ou terminar com espaços.",
+        })
         // Regex para email
         .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
             message: "Email inválido. Tente novamente.",
