@@ -4,11 +4,11 @@ import { describe, it, expect } from "vitest";
 
 // Caso de teste para verificar a presença dos campos essenciais
 describe("Cadastro de usuário", () => {
-    it("Exibe os campos", () => {
+    it("Exibe os campos do cadastro de usuário", () => {
         render(<CadastroUsuario/>);
 
-        const nome = screen.getByLabelText(/Nome/i);
-        const email = screen.getByLabelText(/Email/i);
+        const nome = screen.getByLabelText(/nome/i);
+        const email = screen.getByLabelText(/email/i);
         const botao = screen.getByRole("button", {name: /Cadastrar/i});
 
         expect(nome).toBeTruthy();
@@ -76,6 +76,38 @@ describe("Email sem . e @", () => {
         fireEvent.blur(email);
 
         const erro = await screen.findByText(/Email inválido. Tente novamente./i);
+
+        expect(erro).toBeInTheDocument();
+    });
+});
+
+// Caso de teste para verificar se o email possui no mínimo 6 caracteres
+describe("Email com menos de 6 caracteres", () => {
+    it("Exibe o erro caso o campo email possua menos de 6 caracteres", async () => {
+        render(<CadastroUsuario/>);
+
+        const email = screen.getByLabelText(/email/i);
+
+        fireEvent.change(email, {target: { value: "a".repeat(255) + '@email.com' } });
+        fireEvent.blur(email);
+
+        const erro = await screen.findByText(/O campo email deve possuir no mínimo 6 caracteres./i);
+
+        expect(erro).toBeInTheDocument();
+    });
+});
+
+// Caso de teste para verificar se o email possui mais de 254 caracteres
+describe("Email com mais de 254 caracteres", () => {
+    it("Exibe o erro caso o campo email possui mais de 254 caracteres", async () => {
+        render(<CadastroUsuario/>);
+
+        const email = screen.getByLabelText(/email/i);
+
+        fireEvent.change(email, {target: { value: "lucas@email.com".repeat(255) } });
+        fireEvent.blur(email);
+
+        const erro = await screen.findByText(/O campo email não pode passar de 254 caracteres./i);
 
         expect(erro).toBeInTheDocument();
     });
