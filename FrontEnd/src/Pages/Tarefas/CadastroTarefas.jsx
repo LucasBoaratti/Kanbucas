@@ -9,7 +9,7 @@ import axios from "axios";
 const validacoesTarefas = z.object({
     descricao: z.string()
         .min(1, "Descreva a tarefa, por favor.")
-        .max(500, "A descrição da tarefa não pode ultrapassar 500 caracteres."),
+        .max(100, "A descrição da tarefa não pode ultrapassar 100 caracteres."),
 
     nome_setor: z.string() 
         .min(1, "O campo setor não pode estar vazio.")
@@ -28,7 +28,13 @@ const validacoesTarefas = z.object({
         }, {
             message: "A data não pode ser no futuro.",
         }),
-    status: z.enum(["A fazer", "Fazendo", "Pronto"]),
+    status: z.enum(["A fazer", "Fazendo", "Pronto"], {
+        errorMap: () => {
+            return {
+                message: "Escolha ao menos um status, por favor.",
+            }
+        }
+    }),
 });
 
 export function CadastroTarefas() {
@@ -94,7 +100,7 @@ export function CadastroTarefas() {
                     <h1 className="titulo">Cadastro de tarefas</h1>    
                     <form onSubmit={handleSubmit(tarefas)}>
                         <label htmlFor="descricao" className="label">Descrição</label> <br />
-                        <textarea name="descricao" id="descricao" className="areaTexto" placeholder="Descreva a tarefa aqui" minLength={1} maxLength={500} {...register("descricao")} required ></textarea> <br />
+                        <textarea name="descricao" id="descricao" className="areaTexto" placeholder="Descreva a tarefa aqui" minLength={1} maxLength={100} {...register("descricao")} required ></textarea> <br />
                         {errors.descricao && <p>{errors.descricao.message}</p>}
 
                         <label htmlFor="setor" className="label">Setor</label> <br />
