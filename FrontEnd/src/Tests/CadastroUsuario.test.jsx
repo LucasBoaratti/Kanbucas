@@ -24,12 +24,16 @@ describe("Nome com números", () => {
 
         const nome = screen.getByLabelText(/nome/i);
 
-        fireEvent.change(nome, {target: { value: "Lucas123" } });
+        fireEvent.change(nome, { target: { value: "Lucas123" } });
         fireEvent.blur(nome);
 
-        const erro = await screen.findByText(/Digite apenas letras, por favor./i);
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
 
-        expect(erro).toBeInTheDocument();
+        screen.debug();
+        
+        const erro = await screen.findByTestId("erroNome");
+        expect(erro).toHaveTextContent("Digite apenas letras, por favor.");
     });
 });
 
@@ -42,10 +46,12 @@ describe("Nome com no mínimo de 3 caracteres", () => {
 
         fireEvent.change(nome, {target: { value: "Lu" } });
         fireEvent.blur(nome);
+        
+        const botao = screen.getByRole("button", { name: /Cadastrar/i });
+        fireEvent.click(botao);
 
-        const erro = await screen.findByText(/O campo nome deve possuir no mínimo 3 caracteres./i);
-
-        expect(erro).toBeInTheDocument();
+        const erro = await screen.findByTestId("erroNome");
+        expect(erro).toHaveTextContent("O campo nome deve possuir no mínimo 3 caracteres.");
     });
 });
 
@@ -57,11 +63,13 @@ describe("Nome passando de 30 caracteres", () => {
         const nome = screen.getByLabelText(/nome/i);
 
         fireEvent.change(nome, {target: { value: "Lucas".repeat(31) } });
-        fireEvent.blur();
+        fireEvent.blur(nome);
+        
+        const botao = screen.getByRole("button", { name: /Cadastrar/i });
+        fireEvent.click(botao);
 
-        const erro = await screen.findByText(/O campo nome não pode passar de 30 caracteres./i);
-
-        expect(erro).toBeInTheDocument();
+        const erro = await screen.findByTestId("erroNome");
+        expect(erro).toHaveTextContent("O campo nome não pode passar de 30 caracteres.");
     });
 });
 
@@ -72,12 +80,14 @@ describe("Email sem . e @", () => {
 
         const email = screen.getByLabelText(/email/i);
 
-        fireEvent.change(email, {target: { value: "lucasmarques" } });
+        fireEvent.change(email, {target: { value: "lucashenrique" } });
         fireEvent.blur(email);
+        
+        const botao = screen.getByRole("button", { name: /Cadastrar/i });
+        fireEvent.click(botao);
 
-        const erro = await screen.findByText(/Email inválido. Tente novamente./i);
-
-        expect(erro).toBeInTheDocument();
+        const erro = await screen.findByTestId("erroEmail");
+        expect(erro).toHaveTextContent("Email inválido. Tente novamente.");
     });
 });
 
@@ -88,12 +98,14 @@ describe("Email com menos de 6 caracteres", () => {
 
         const email = screen.getByLabelText(/email/i);
 
-        fireEvent.change(email, {target: { value: "a".repeat(255) + '@email.com' } });
+        fireEvent.change(email, {target: { value: "l@e.c" } });
         fireEvent.blur(email);
+        
+        const botao = screen.getByRole("button", { name: /Cadastrar/i });
+        fireEvent.click(botao);
 
-        const erro = await screen.findByText(/O campo email deve possuir no mínimo 6 caracteres./i);
-
-        expect(erro).toBeInTheDocument();
+        const erro = await screen.findByTestId("erroEmail");
+        expect(erro).toHaveTextContent("O campo email deve possuir no mínimo 6 caracteres.");
     });
 });
 
@@ -104,11 +116,13 @@ describe("Email com mais de 254 caracteres", () => {
 
         const email = screen.getByLabelText(/email/i);
 
-        fireEvent.change(email, {target: { value: "lucas@email.com".repeat(255) } });
+        fireEvent.change(email, {target: { value: "a".repeat(255) + "@email.com" } });
         fireEvent.blur(email);
+        
+        const botao = screen.getByRole("button", { name: /Cadastrar/i });
+        fireEvent.click(botao);
 
-        const erro = await screen.findByText(/O campo email não pode passar de 254 caracteres./i);
-
-        expect(erro).toBeInTheDocument();
+        const erro = await screen.findByTestId("erroEmail");
+        expect(erro).toHaveTextContent("O campo email não pode passar de 254 caracteres.");
     });
 });

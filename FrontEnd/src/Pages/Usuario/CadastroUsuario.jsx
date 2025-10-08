@@ -75,12 +75,12 @@ export function CadastroUsuario() {
                     <h1 className="titulo">Cadastro de usuários</h1>                
                     <form onSubmit={handleSubmit(login)}>
                         <label htmlFor="nome" className="label">Nome:</label> <br />
-                        <input type="text" name="nome" id="nome" className="input" placeholder="Digite seu nome" minLength={3} maxLength={30} {...register("nome")} required /> <br />
-                        {errors.nome && <p className="erro">{errors.nome.message}</p>}
+                        <input type="text" name="nome" id="nome" className="input" placeholder="Digite seu nome" {...register("nome")}/> <br />
+                        {errors.nome && <p className="erro" data-testid="erroNome">{errors.nome.message}</p>}
 
                         <label htmlFor="email" className="label">Email:</label> <br />
-                        <input type="email" name="email" id="email" className="input" placeholder="Digite seu email" minLength={6} maxLength={254} {...register("email")} required /> <br />
-                        {errors.email && <p className="erro">{errors.email.message}</p>}
+                        <input type="text" name="email" id="email" className="input" placeholder="Digite seu email" {...register("email")}/> <br />
+                        {errors.email && <p className="erro" data-testid="erroEmail">{errors.email.message}</p>}
 
                         <div className="containerBotao">
                             <button type="submit" className="botao">Cadastrar</button>

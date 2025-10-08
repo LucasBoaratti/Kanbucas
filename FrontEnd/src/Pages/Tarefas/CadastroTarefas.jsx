@@ -10,31 +10,21 @@ const validacoesTarefas = z.object({
     descricao: z.string()
         .min(1, "Descreva a tarefa, por favor.")
         .max(100, "A descrição da tarefa não pode ultrapassar 100 caracteres."),
-
     nome_setor: z.string() 
         .min(1, "O campo setor não pode estar vazio.")
         .max(50, "O nome do setor não pode ultrapassar 50 caracteres."),
-    prioridade: z.enum(["Baixa", "Média", "Alta"], {
-        errorMap: () => {
-            return {
-                message: "Escolha ao menos uma prioridade, por favor.",
-            }
-        }
-    }),
-    data_cadastro: z.string()
-        .refine((value) => { 
-            const data = new Date(value);
-            return data <= new Date();
-        }, {
+    prioridade: z.string()
+        .refine((value) => ["Alta", "Média", "Baixa"].includes(value), {
+            message: "Escolha ao menos uma prioridade, por favor.",
+        }),
+    data_cadastro: z.coerce.date()
+        .refine((value) => value <= new Date(), {
             message: "A data não pode ser no futuro.",
         }),
-    status: z.enum(["A fazer", "Fazendo", "Pronto"], {
-        errorMap: () => {
-            return {
-                message: "Escolha ao menos um status, por favor.",
-            }
-        }
-    }),
+    status: z.string()
+        .refine((value) => ["A fazer", "Fazendo", "Pronto"].includes(value), {
+            message: "Escolha ao menos um status, por favor.",
+        }),
 });
 
 export function CadastroTarefas() {
@@ -100,39 +90,41 @@ export function CadastroTarefas() {
                     <h1 className="titulo">Cadastro de tarefas</h1>    
                     <form onSubmit={handleSubmit(tarefas)}>
                         <label htmlFor="descricao" className="label">Descrição</label> <br />
-                        <textarea name="descricao" id="descricao" className="areaTexto" placeholder="Descreva a tarefa aqui" minLength={1} maxLength={100} {...register("descricao")} required ></textarea> <br />
-                        {errors.descricao && <p>{errors.descricao.message}</p>}
+                        <textarea name="descricao" id="descricao" className="areaTexto" placeholder="Descreva a tarefa aqui"  {...register("descricao")}></textarea> <br />
+                        {errors.descricao && <p data-testid="erroDescricao">{errors.descricao.message}</p>}
 
                         <label htmlFor="setor" className="label">Setor</label> <br />
-                        <input type="text" name="setor" id="setor" className="input" placeholder="Nome do setor" minLength={1} maxLength={50} {...register("nome_setor")} required /> <br />
-                        {errors.nome_setor && <p>{errors.nome_setor.message}</p>}
+                        <input type="text" name="setor" id="setor" className="input" placeholder="Nome do setor" {...register("nome_setor")}/> <br />
+                        {errors.nome_setor && <p data-testid="erroSetor">{errors.nome_setor.message}</p>}
 
                         <label htmlFor="prioridade" className="label">Prioridade</label> <br />
-                        <select name="prioridade" id="prioridade" className="selecao" {...register("prioridade")} required>
-                            <option value="Alta">Baixa</option>
+                        <select name="prioridade" id="prioridade" className="selecao" {...register("prioridade")}>
+                            <option value="">Selecione...</option>
+                            <option value="Alta">Alta</option>
                             <option value="Média">Média</option>
-                            <option value="Baixa">Alta</option>
+                            <option value="Baixa">Baixa</option>
                         </select> <br />
-                        {errors.prioridade && <p>{errors.prioridade.message}</p>}
+                        {errors.prioridade && <p data-testid="erroPrioridade">{errors.prioridade.message}</p>}
 
                         <label htmlFor="usuario" className="label">Usuário responsável</label> <br />
-                        <select name="usuario" id="usuario" className="selecao" value={idUsuario} onChange={(e) => setIdUsuario(e.target.value)} required>
+                        <select name="usuario" id="usuario" className="selecao" value={idUsuario} onChange={(e) => setIdUsuario(e.target.value)}>
                             {nomes.map((usuario) => (
                                 <option key={usuario.id} value={usuario.id}>{usuario.nome}</option>
                            ))}
                         </select> <br />
 
                         <label htmlFor="dataCadastro" className="label">Data de cadastro</label> <br />
-                        <input type="date" name="dataCadastro" id="dataCadastro" className="input" {...register("data_cadastro")} required /> <br />
-                        {errors.data_cadastro && <p>{errors.data_cadastro.message}</p>}
+                        <input type="date" name="data_cadastro" id="dataCadastro" className="input" {...register("data_cadastro")}/> <br />
+                        {errors.data_cadastro && <p data-testid="erroData">{errors.data_cadastro.message}</p>}
 
                         <label htmlFor="status" className="label">Status</label> <br />
-                        <select name="status" id="status" className="selecao" {...register("status")} required>
+                        <select name="status" id="status" className="selecao" {...register("status")}>
+                            <option value="">Selecione...</option>
                             <option value="A fazer">A fazer</option>
                             <option value="Fazendo">Fazendo</option>
                             <option value="Pronto">Pronto</option>
                         </select> <br />
-                        {errors.status && <p>{errors.status.message}</p>}
+                        {errors.status && <p data-testid="erroStatus">{errors.status.message}</p>}
 
                         <div className="containerBotao">
                             <button type="submit" className="botaoCadastro">Cadastrar</button>

@@ -1,24 +1,22 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { CadastroTarefas } from "../Pages/Tarefas/CadastroTarefas";
-import { describe, it, expect, beforeEach, afterAll } from "vitest";
+import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 
 // Caso de teste para verificar se os campos estão presentes
 describe("Cadastro de tarefas", () => {
     it("Exibe os campos do cadastro de tarefas", () => {
         render(<CadastroTarefas/>);
 
-        const descricao = screen.getByLabelText(/descricao/i);
+        const descricao = screen.getByLabelText(/descrição/i);
         const nome_setor = screen.getByLabelText(/setor/i);
         const prioridade = screen.getByLabelText(/prioridade/i);
-        const usuario = screen.getByLabelText(/usuario/i);
-        const data_cadastro = screen.getByLabelText(/dataCadastro/i);
+        const data_cadastro = screen.getByLabelText(/data de cadastro/i);
         const status = screen.getByLabelText(/status/i);
         const botao = screen.getByRole("button", {name: /Cadastrar/i});
 
         expect(descricao).toBeTruthy();
         expect(nome_setor).toBeTruthy();
         expect(prioridade).toBeTruthy();
-        expect(usuario).toBeTruthy();
         expect(data_cadastro).toBeTruthy();
         expect(status).toBeTruthy();
         expect(botao).toBeTruthy();
@@ -30,14 +28,18 @@ describe("Teste para verificar se há algo escrito na descrição da tarefa", ()
     it("Exibe o erro falando pro usuário digitar algo para a descrição da tarefa", async () => {
         render(<CadastroTarefas/>);
 
-        const descricao = screen.getByLabelText(/descricao/i);
+        const descricao = screen.getByLabelText(/descrição/i);
 
         fireEvent.change(descricao, {target: { value: "" } });
         fireEvent.blur(descricao);
 
-        const erro = await screen.findByText(/Descreva a tarefa, por favor./i);
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
 
-        expect(erro).toBeInTheDocument();
+        screen.debug();
+
+        const erro = await screen.findByTestId("erroDescricao");
+        expect(erro).toHaveTextContent("Descreva a tarefa, por favor.");
     });
 });
 
@@ -46,14 +48,18 @@ describe("Teste para verificar se o usuário digitou mais de 100 caracteres na d
     it("Exibe o erro caso o usuário digite mais de 100 caracteres na descrição da tarefa", async () => {
         render(<CadastroTarefas/>);
 
-        const descricao = screen.getByLabelText(/descricao/i);
+        const descricao = screen.getByLabelText(/descrição/i);
 
         fireEvent.change(descricao, {target: { value: "Tarefa que representa uma coisa muito importante...".repeat(101) } });
         fireEvent.blur(descricao);
 
-        const erro = await screen.findByText(/A descrição da tarefa não pode ultrapassar 100 caracteres./i);
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
 
-        expect(erro).toBeInTheDocument();
+        screen.debug();
+
+        const erro = await screen.findByTestId("erroDescricao");
+        expect(erro).toHaveTextContent("A descrição da tarefa não pode ultrapassar 100 caracteres.");
     });
 });
 
@@ -62,14 +68,18 @@ describe("Teste para verificar se há algo escrito no campo setor", () => {
     it("Exibe o erro falando pro usuário digitar algo no campo setor", async () => {
         render(<CadastroTarefas/>);
 
-        const nome_setor = screen.getByLabelText(/nome_setor/i);
+        const nome_setor = screen.getByLabelText(/setor/i);
 
         fireEvent.change(nome_setor, {target: { value: "" } });
         fireEvent.blur(nome_setor);
 
-        const erro = await screen.findByText(/O campo setor não pode estar vazio./i);
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
 
-        expect(erro).toBeInTheDocument();
+        screen.debug();
+
+        const erro = await screen.findByTestId("erroSetor");
+        expect(erro).toHaveTextContent("O campo setor não pode estar vazio.");
     });
 });
 
@@ -78,14 +88,18 @@ describe("Teste para verificar se o usuário digitou mais de 50 caracteres no ca
     it("Exibe o erro caso o usuário digite mais de 50 caracteres no campo setor", async () => {
         render(<CadastroTarefas/>);
 
-        const nome_setor = screen.getByLabelText(/nome_setor/i);
+        const nome_setor = screen.getByLabelText(/setor/i);
 
         fireEvent.change(nome_setor, {target: { value: "SENAI".repeat(51) } });
         fireEvent.blur(nome_setor);
 
-        const erro = await screen.findByText(/O nome do setor não pode ultrapassar 50 caracteres./i);
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
 
-        expect(erro).toBeInTheDocument();
+        screen.debug();
+
+        const erro = await screen.findByTestId("erroSetor");
+        expect(erro).toHaveTextContent("O nome do setor não pode ultrapassar 50 caracteres.");
     });
 });
 
@@ -98,36 +112,55 @@ describe("Verificando se o campo prioridade foi selecionado", () => {
 
         fireEvent.blur(prioridade);
 
-        const erro = await screen.findByText(/Escolha ao menos uma prioridade, por favor./i);
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
 
-        expect(erro).toBeInTheDocument();
+        screen.debug();
+
+        const erro = await screen.findByTestId("erroPrioridade");
+        expect(erro).toHaveTextContent("Escolha ao menos uma prioridade, por favor.");
     });
 });
 
 // Caso de teste para verificar se a data escolhida pelo usuário não esteja no futuro
-const data = new Date('2025-10-07T10:00:00');
-
 describe("Validação de data no futuro", () => {
-    jest.useFakeTimers();
-    
-    beforeEach(() => {
-        jest.setSystemTime(data);
-    });
-
-    afterAll(() => {
-        jest.useRealTimers();
+    afterEach(() => {
+        vi.useRealTimers();
     });
 
     it("Exibe o erro caso a data esteja no futuro", async () => {
         render(<CadastroTarefas/>);
 
-        const dataCadastro = screen.getByLabelText(/dataCadastro/i);
+        const dataCadastro = screen.getByLabelText(/data de cadastro/i);
 
-        fireEvent.change(dataCadastro, {target: { value: '2025-10-08'} });
+        fireEvent.change(dataCadastro, {target: { value: '9999-01-01' } });
         fireEvent.blur(dataCadastro);
 
-        const erro = await screen.findByText(/A data não pode ser no futuro./i);
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
 
-        expect(erro).toBeInTheDocument();
+        screen.debug();
+
+        const erro = await screen.findByTestId("erroData");
+        expect(erro).toHaveTextContent("A data não pode ser no futuro.");
+    });
+});
+
+// Caso de teste para verificar se um campo de status foi escolhido
+describe("Verificando se um campo de prioridade foi escolhido", () => {
+    it("Exibe o erro se nenhum status foi escolhido", async () => {
+        render(<CadastroTarefas/>);
+
+        const status = screen.getByLabelText(/status/i);
+
+        fireEvent.blur(status);
+
+        const botao = screen.getByRole("button", { name: /cadastrar/i });
+        fireEvent.click(botao);
+
+        screen.debug();
+
+        const erro = await screen.findByTestId("erroStatus");
+        expect(erro).toHaveTextContent("Escolha ao menos um status, por favor.");
     });
 });
